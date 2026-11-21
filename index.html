@@ -25,119 +25,64 @@
             align-items: center;
         }
         .header {
-            width: 100%;
-            background: var(--secondary-bg);
-            border-radius: 12px;
-            padding: 15px;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-            text-align: center;
+            width: 100%; background: var(--secondary-bg); border-radius: 12px;
+            padding: 15px; box-sizing: border-box; margin-bottom: 15px; text-align: center;
         }
         .header h2 { margin: 0 0 5px 0; font-size: 18px; }
         .balance { font-size: 16px; font-weight: bold; color: #e53935; }
         .timer { font-size: 12px; color: var(--hint-color); margin-top: 5px; }
 
-        .tabs {
-            display: flex;
-            width: 100%;
-            gap: 5px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
+        .tabs { display: flex; width: 100%; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; }
         .tab-btn {
-            flex: 1 0 20%;
-            padding: 10px 5px;
-            background: var(--secondary-bg);
-            color: var(--text-color);
-            border: none;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            white-space: nowrap;
+            flex: 1 0 20%; padding: 10px 5px; background: var(--secondary-bg);
+            color: var(--text-color); border: none; border-radius: 8px;
+            font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.2s; white-space: nowrap;
         }
-        .tab-btn.active {
-            background: var(--button-color);
-            color: var(--button-text);
-        }
+        .tab-btn.active { background: var(--button-color); color: var(--button-text); }
 
         .tab-content { width: 100%; display: none; flex-direction: column; gap: 10px; }
         .tab-content.active { display: flex; }
 
+        /* Поиск */
         .input-group { display: flex; gap: 10px; }
         input {
-            flex: 1;
-            padding: 14px;
-            border-radius: 10px;
-            border: 1px solid var(--hint-color);
-            background: var(--bg-color);
-            color: var(--text-color);
-            font-size: 16px;
-            outline: none;
+            flex: 1; padding: 14px; border-radius: 10px; border: 1px solid var(--hint-color);
+            background: var(--bg-color); color: var(--text-color); font-size: 16px; outline: none;
         }
         button.action-btn {
-            padding: 14px 20px;
-            background-color: var(--button-color);
-            color: var(--button-text);
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
+            padding: 14px 20px; background-color: var(--button-color); color: var(--button-text);
+            border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer;
         }
         button.action-btn:disabled { background-color: var(--hint-color); opacity: 0.7; }
-
         .results { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 15px;}
         .card { background: var(--secondary-bg); padding: 15px; border-radius: 10px; border-left: 4px solid var(--button-color); }
         .card h3 { margin: 0 0 5px 0; font-size: 16px; }
         .card p { margin: 0; font-size: 14px; color: var(--hint-color); }
 
+        /* Рулетка */
         .spin-container { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 10px;}
         .wheel-wrapper { position: relative; width: 250px; height: 250px; }
         .arrow {
-            width: 0; height: 0; 
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 30px solid #e53935;
-            position: absolute; top: -15px; left: 110px; z-index: 10;
+            width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent;
+            border-top: 30px solid #e53935; position: absolute; top: -15px; left: 110px; z-index: 10;
         }
         .wheel {
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            border: 5px solid var(--secondary-bg);
-            position: relative;
-            transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-            overflow: hidden;
+            width: 100%; height: 100%; border-radius: 50%; border: 5px solid var(--secondary-bg);
+            position: relative; transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99); overflow: hidden;
         }
         .wheel-center {
-            width: 60px; height: 60px;
-            background: var(--bg-color);
-            border: 4px solid var(--secondary-bg);
-            border-radius: 50%;
-            position: absolute;
-            top: 95px; left: 95px;
+            width: 60px; height: 60px; background: var(--bg-color); border: 4px solid var(--secondary-bg);
+            border-radius: 50%; position: absolute; top: 95px; left: 95px;
             display: flex; justify-content: center; align-items: center;
-            font-size: 24px; font-weight: bold; z-index: 5;
-            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            font-size: 24px; font-weight: bold; z-index: 5; box-shadow: 0 0 10px rgba(0,0,0,0.2);
         }
         .sector {
-            position: absolute;
-            width: 50%; height: 50%;
-            transform-origin: bottom right;
-            left: 0; top: 0;
-            border-left: 1px solid rgba(0,0,0,0.1);
-            box-sizing: border-box;
+            position: absolute; width: 50%; height: 50%; transform-origin: bottom right;
+            left: 0; top: 0; border-left: 1px solid rgba(0,0,0,0.1); box-sizing: border-box;
         }
         .sector-text {
-            position: absolute;
-            top: 20px; right: 20px;
-            width: 80px;
-            text-align: center;
-            font-size: 11px;
-            font-weight: bold;
-            color: #000;
-            transform: rotate(45deg);
+            position: absolute; top: 20px; right: 20px; width: 80px; text-align: center;
+            font-size: 11px; font-weight: bold; color: #000; transform: rotate(45deg);
         }
         .s0 { background: #ff9999; transform: rotate(0deg); }
         .s1 { background: #99ccff; transform: rotate(60deg); }
@@ -145,51 +90,27 @@
         .s3 { background: #ffff99; transform: rotate(180deg); }
         .s4 { background: #ffcc99; transform: rotate(240deg); }
         .s5 { background: #cc99ff; transform: rotate(300deg); }
-
         .spin-result { font-size: 18px; font-weight: bold; text-align: center; min-height: 30px; color: var(--button-color);}
 
+        /* Промокоды */
         .promo-card {
-            background: var(--secondary-bg);
-            border: 2px dashed #4caf50;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: #2e7d32;
-            position: relative;
+            background: var(--secondary-bg); border: 2px dashed #4caf50; padding: 15px;
+            border-radius: 10px; text-align: center; font-size: 18px; font-weight: bold;
+            letter-spacing: 1px; color: #2e7d32; position: relative;
         }
         .empty-msg { text-align: center; color: var(--hint-color); margin-top: 20px; }
         .error { color: #e53935; text-align: center; margin-top: 10px; }
 
-        /* Стили для магазина */
-        .shop-item {
-            background: var(--secondary-bg);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
+        /* Магазин */
+        .shop-item { background: var(--secondary-bg); padding: 20px; border-radius: 12px; text-align: center; }
         .shop-item h3 { margin: 0 0 10px 0; font-size: 20px; }
         .shop-item p { margin: 0 0 20px 0; color: var(--hint-color); font-size: 14px; }
         .shop-item button {
-            width: 100%;
-            padding: 15px;
-            font-size: 18px;
-            background: var(--button-color);
-            color: var(--button-text);
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
+            width: 100%; padding: 15px; font-size: 18px; background: var(--button-color);
+            color: var(--button-text); border: none; border-radius: 10px; font-weight: bold; cursor: pointer;
         }
         .shop-item button:active { opacity: 0.8; }
-        .shop-note {
-            font-size: 12px;
-            color: var(--hint-color);
-            text-align: center;
-            margin-top: 15px;
-        }
+        .shop-note { font-size: 12px; color: var(--hint-color); text-align: center; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -207,7 +128,6 @@
         <button class="tab-btn" onclick="switchTab('shop')">⭐ Магазин</button>
     </div>
 
-    <!-- ВКЛАДКА ПОИСКА -->
     <div id="searchTab" class="tab-content active">
         <div class="input-group">
             <input type="text" id="searchInput" placeholder="Что ищем? (например, матрица)">
@@ -216,35 +136,28 @@
         <div class="results" id="resultsContainer"></div>
     </div>
 
-    <!-- ВКЛАДКА РУЛЕТКИ -->
     <div id="spinTab" class="tab-content">
         <div class="spin-container">
             <div class="wheel-wrapper">
                 <div class="arrow"></div>
-                <div class="wheel" id="wheel">
-                    <div class="wheel-center">🎯</div>
-                </div>
+                <div class="wheel" id="wheel"><div class="wheel-center">🎯</div></div>
             </div>
             <button class="action-btn" id="spinBtn" onclick="spinWheel()" style="width: 100%;">Крутить (1 запрос)</button>
             <div class="spin-result" id="spinResult"></div>
         </div>
     </div>
 
-    <!-- ВКЛАДКА ПРОМОКОДОВ -->
     <div id="promoTab" class="tab-content">
         <div id="promoList" style="display: flex; flex-direction: column; gap: 10px;"></div>
     </div>
 
-    <!-- ВКЛАДКА МАГАЗИНА -->
     <div id="shopTab" class="tab-content">
         <div class="shop-item">
             <h3>Пополнить баланс</h3>
             <p>5 дополнительных запросов для поиска и рулетки</p>
-            <button onclick="buyQueries()">⭐ Купить за 50 Stars</button>
+            <button onclick="mockBuyQueries()">⭐ Купить за 50 Stars</button>
         </div>
-        <div class="shop-note">
-            Оплата проходит через Telegram Stars. После успешной оплаты запросы будут зачислены автоматически.
-        </div>
+        <div class="shop-note">Внимание: Это тестовый режим. Реальная оплата отключена.</div>
     </div>
 
     <script>
@@ -253,15 +166,7 @@
 
         const MAX_QUERIES = 5;
         const RESET_TIME_MS = 24 * 60 * 60 * 1000;
-        const PRIZES = [
-            "Ничего :(",
-            "+1 запрос",
-            "Скидка 10%",
-            "Ничего :(",
-            "+1 запрос",
-            "Промокод LYNEXX"
-        ];
-
+        const PRIZES = ["Ничего :(", "+1 запрос", "Скидка 10%", "Ничего :(", "+1 запрос", "Промокод LYNEXX"];
         let queriesLeft = 0;
         let nextResetTime = 0;
         let promocodes = [];
@@ -287,11 +192,8 @@
                 queriesLeft = parseInt(savedQueries);
                 nextResetTime = parseInt(savedResetTime);
             }
-
             let savedPromos = localStorage.getItem('lynex_promos');
-            if (savedPromos) {
-                promocodes = JSON.parse(savedPromos);
-            }
+            if (savedPromos) promocodes = JSON.parse(savedPromos);
 
             drawWheel();
             updateUI();
@@ -303,7 +205,6 @@
             const wheel = document.getElementById('wheel');
             const sliceAngle = 360 / PRIZES.length;
             wheel.querySelectorAll('.sector').forEach(e => e.remove());
-
             PRIZES.forEach((prize, index) => {
                 const sector = document.createElement('div');
                 sector.className = `sector s${index}`;
@@ -407,8 +308,7 @@
 
         function addPromocode(prizeName) {
             const randomCode = "LYN-" + Math.random().toString(36).substring(2, 6).toUpperCase() + "-" + Math.floor(Math.random() * 100);
-            const newPromo = `${prizeName} (Код: ${randomCode})`;
-            promocodes.push(newPromo);
+            promocodes.push(`${prizeName} (Код: ${randomCode})`);
             localStorage.setItem('lynex_promos', JSON.stringify(promocodes));
             renderPromocodes();
         }
@@ -425,35 +325,18 @@
             });
         }
 
-        // Логика покупки
-        function buyQueries() {
-            // ВАЖНО: Для реальной оплаты нужен сервер, который создаст ссылку на инвойс.
-            // Примерная ссылка на инвойс для Telegram Stars выглядит так:
-            // https://t.me/$<invoice_slug>
-            // Мы используем заглушку, которая показывает, как это должно работать.
-
-            const invoiceUrl = "https://t.me/$YOUR_INVOICE_LINK"; // Замените на реальную ссылку с сервера
-
-            if (tg.openInvoice) {
-                tg.openInvoice(invoiceUrl, (status) => {
-                    if (status === 'paid') {
-                        // Успешная оплата
-                        queriesLeft += 5;
-                        localStorage.setItem('lynex_queries', queriesLeft);
-                        updateUI();
-                        alert('Оплата прошла успешно! Вам зачислено 5 запросов.');
-                    } else if (status === 'cancelled') {
-                        alert('Оплата отменена.');
-                    } else if (status === 'failed') {
-                        alert('Ошибка при оплате. Попробуйте позже.');
-                    }
-                });
-            } else {
-                alert('Ваш клиент Telegram не поддерживает оплату через Mini App. Обновите приложение.');
+        // ТЕСТОВАЯ ПОКУПКА (Без сервера)
+        function mockBuyQueries() {
+            const confirmBuy = confirm("Это тестовый режим. Вы хотите бесплатно получить +5 запросов?");
+            if (confirmBuy) {
+                queriesLeft += 5;
+                localStorage.setItem('lynex_queries', queriesLeft);
+                updateUI();
+                alert('✅ Тестовая оплата прошла успешно! Вам зачислено 5 запросов.');
             }
         }
 
         initApp();
     </script>
 </body>
-    </html>
+</html>
