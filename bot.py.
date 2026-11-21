@@ -7,15 +7,14 @@ import os
 import sqlite3
 
 # --- НАСТРОЙКИ ---
-BOT_TOKEN = 8929454152:AAGsMrj0-4JjTRwE_Zwfz3YcuVmEYNSHtQA' # Вставьте токен от BotFather
-WEBAPP_URL = 'https://lynex-dev.github.io/My-tg-ap/' # Ссылка на ваш сайт
+# ОБЯЗАТЕЛЬНО ЗАМЕНИТЕ ТЕКСТ НИЖЕ НА ВАШ ТОКЕН ОТ BOTFATHER
+BOT_TOKEN = '8929454152:8929454152:AAF5SnWzKgEtX4FmnkHtZ_Yd17gELfo_HDI'
+WEBAPP_URL = 'https://lynex-dev.github.io/My-tg-ap/'
 
 bot = telebot.TeleBot(BOT_TOKEN)
 app = Flask(__name__)
 CORS(app)
 
-# Создаем простую базу данных в памяти для хранения баланса
-# (Внимание: при перезапуске сервера данные сбросятся, для теста это нормально)
 users_db = {}
 
 def get_user(user_id):
@@ -23,75 +22,57 @@ def get_user(user_id):
         users_db[user_id] = {'queries': 5, 'promocodes': []}
     return users_db[user_id]
 
-# --- ЛОГИКА БОТА ---
 @bot.message_handler(commands=['start'])
 def start_cmd(message):
     user_id = message.from_user.id
     get_user(user_id)
     
     markup = telebot.types.InlineKeyboardMarkup()
-    # Кнопка для открытия вашего Mini App
     web_app = telebot.types.WebAppInfo(url=WEBAPP_URL)
     markup.add(telebot.types.InlineKeyboardButton(text="Открыть Поиск", web_app=web_app))
     
     bot.send_message(message.chat.id, "Привет! Нажми кнопку ниже, чтобы открыть приложение.", reply_markup=markup)
 
-# Обработка предоплаты (обязательно для Telegram)
 @bot.pre_checkout_query_handler(func=lambda query: True)
 def checkout(pre_checkout_query):
     bot.answer_pre_checkout_query(pre_checkout_query.id, ok=True)
 
-# Обработка успешной оплаты
 @bot.message_handler(content_types=['successful_payment'])
 def got_payment(message):
     user_id = message.from_user.id
     user = get_user(user_id)
-    
-    # Начисляем 5 запросов
     user['queries'] += 5
-    
-    bot.send_message(message.chat.id, 
-        f"✅ Оплата прошла успешно!\nВам зачислено 5 запросов.\nТеперь у вас: {user['queries']} запросов.")
+    bot.send_message(message.chat.id, f"✅ Оплата прошла успешно!\nВам зачислено 5 запросов.\nТеперь у вас: {user['queries']} запросов.")
 
-# --- API ДЛЯ МИНИ-АППА ---
-# 1. Проверка баланса
 @app.route('/api/balance', methods=['GET'])
 def get_balance():
     user_id = int(request.args.get('user_id'))
     user = get_user(user_id)
     return jsonify({'queries': user['queries']})
 
-# 2. Создание счета на оплату
 @app.route('/api/buy', methods=['POST'])
 def buy_queries():
     data = request.json
     user_id = int(data['user_id'])
-    
-    # Создаем ссылку на оплату в Stars (валюта XTR)
-    prices = [LabeledPrice(label='5 запросов', amount=50)] # 50 звезд
+    prices = [LabeledPrice(label='5 запросов', amount=50)]
     
     try:
-        # Создаем инвойс
         invoice_link = bot.create_invoice_link(
             title="Покупка запросов",
             description="5 запросов для поиска и рулетки",
             payload="buy_5_queries",
-            provider_token="", # Для Stars оставляем пустым
-            currency="XTR",    # Валюта Telegram Stars
+            provider_token="",
+            currency="XTR",
             prices=prices
         )
         return jsonify({'invoice_link': invoice_link})
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
-# Функция запуска бота в фоне
 def run_bot():
     bot.infinity_polling()
 
-# Запускаем сервер
 if __name__ == '__main__':
-    # Запускаем бота в отдельном потоке
     threading.Thread(target=run_bot, daemon=True).start()
-    # Запускаем веб-сервер (Render сам даст нужный порт)
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
