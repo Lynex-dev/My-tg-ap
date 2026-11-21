@@ -54,6 +54,7 @@
             border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer;
         }
         button.action-btn:disabled { background-color: var(--hint-color); opacity: 0.7; }
+        
         .results { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 15px;}
         .card { background: var(--secondary-bg); padding: 15px; border-radius: 10px; border-left: 4px solid var(--button-color); }
         .card h3 { margin: 0 0 5px 0; font-size: 16px; }
@@ -130,7 +131,7 @@
 
     <div id="searchTab" class="tab-content active">
         <div class="input-group">
-            <input type="text" id="searchInput" placeholder="Что ищем? (например, матрица)">
+            <input type="text" id="searchInput" placeholder="Телефоны, люди, Roblox, платформы...">
             <button class="action-btn" id="searchBtn" onclick="performSearch()">Найти</button>
         </div>
         <div class="results" id="resultsContainer"></div>
@@ -171,11 +172,35 @@
         let nextResetTime = 0;
         let promocodes = [];
 
+        // --- ОГРОМНАЯ БАЗА ДАННЫХ ---
         const database = [
-            { title: "Матрица", desc: "Фантастический боевик 1999 года." },
-            { title: "Интерстеллар", desc: "Космическая одиссея." },
-            { title: "GTA V", desc: "Легендарная игра." },
-            { title: "iPhone 15", desc: "Смартфон от Apple." }
+            // ТЕЛЕФОНЫ
+            { title: "iPhone 15 Pro Max", desc: "Флагманский смартфон от Apple с титановым корпусом и чипом A17 Pro." },
+            { title: "Samsung Galaxy S24 Ultra", desc: "Мощный Android-смартфон с ИИ-функциями и встроенным стилусом S Pen." },
+            { title: "Google Pixel 8 Pro", desc: "Телефон от Google с лучшей камерой и чистым Android." },
+            { title: "Xiaomi 14 Pro", desc: "Смартфон с топовым процессором Snapdragon и камерой Leica." },
+            { title: "Nothing Phone (2)", desc: "Уникальный телефон с прозрачной задней крышкой и подсветкой Glyph." },
+            
+            // ИЗВЕСТНЫЕ ЛЮДИ
+            { title: "Бруно Марс (Bruno Mars)", desc: "Популярный американский певец, автор песен и продюсер. Хиты: Uptown Funk, Just the Way You Are." },
+            { title: "Криштиану Роналду", desc: "Легендарный португальский футболист, нападающий. Один из лучших игроков в истории." },
+            { title: "Илон Маск", desc: "Предприниматель, основатель Tesla, SpaceX и владелец социальной сети X (Twitter)." },
+            { title: "Тейлор Свифт (Taylor Swift)", desc: "Американская певица, обладательница множества премий Грэмми." },
+            { title: "Мистер Бист (MrBeast)", desc: "Самый популярный YouTuber в мире, известный масштабными челленджами и раздачей денег." },
+
+            // ИГРЫ ROBLOX
+            { title: "Blox Fruits (Roblox)", desc: "Одна из самых популярных игр в Roblox про поиск фруктов и сражения." },
+            { title: "Adopt Me! (Roblox)", desc: "Игра, где нужно ухаживать за питомцами и обмениваться ими с другими игроками." },
+            { title: "Brookhaven RP (Roblox)", desc: "Ролевая игра, где можно жить обычной жизнью, водить машины и строить дом." },
+            { title: "Tower of Hell (Roblox)", desc: "Хардкорный обби (полоса препятствий), который меняется каждый раз." },
+            { title: "Murder Mystery 2 (Roblox)", desc: "Детективная игра, где нужно вычислить убийцу или выжить." },
+
+            // ИГРОВЫЕ ПЛАТФОРМЫ
+            { title: "PlayStation 5", desc: "Игровая консоль от Sony с эксклюзивами вроде God of War и Spider-Man." },
+            { title: "Xbox Series X", desc: "Мощная консоль от Microsoft с подпиской Game Pass." },
+            { title: "Nintendo Switch", desc: "Гибридная консоль, которую можно подключать к ТВ или играть в портативе." },
+            { title: "PC (Steam)", desc: "Персональный компьютер. Steam — крупнейшая платформа для игр на ПК." },
+            { title: "Мобильный гейминг", desc: "Игры на iOS и Android (PUBG Mobile, Genshin Impact, Brawl Stars)." }
         ];
 
         function initApp() {
@@ -265,8 +290,14 @@
             if (!query) { container.innerHTML = '<div class="error">Введите запрос!</div>'; return; }
             if (!useQuery()) return;
             container.innerHTML = '<p style="text-align:center;">Ищем...</p>';
+            
             setTimeout(() => {
-                const results = database.filter(item => item.title.toLowerCase().includes(query));
+                // ТЕПЕРЬ ПОИСК ИЩЕТ И В НАЗВАНИИ, И В ОПИСАНИИ
+                const results = database.filter(item => 
+                    item.title.toLowerCase().includes(query) || 
+                    item.desc.toLowerCase().includes(query)
+                );
+                
                 container.innerHTML = '';
                 if (results.length === 0) {
                     container.innerHTML = '<div class="error">Ничего не найдено 🤷‍♂️</div>';
@@ -325,7 +356,6 @@
             });
         }
 
-        // ТЕСТОВАЯ ПОКУПКА (Без сервера)
         function mockBuyQueries() {
             const confirmBuy = confirm("Это тестовый режим. Вы хотите бесплатно получить +5 запросов?");
             if (confirmBuy) {
