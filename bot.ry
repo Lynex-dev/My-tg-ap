@@ -7,7 +7,7 @@ import os
 import sqlite3
 
 # --- НАСТРОЙКИ ---
-BOT_TOKEN = 'ТОКЕН_ВАШЕГО_БОТА' # Вставьте токен от BotFather
+BOT_TOKEN = 8929454152:AAGsMrj0-4JjTRwE_Zwfz3YcuVmEYNSHtQA' # Вставьте токен от BotFather
 WEBAPP_URL = 'https://lynex-dev.github.io/My-tg-ap/' # Ссылка на ваш сайт
 
 bot = telebot.TeleBot(BOT_TOKEN)
